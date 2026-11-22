@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baby Advice & Predictions – Results</title>
+<meta name="theme-color" content="#e9fbfd">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+  /* ✏️ Keep these the same as in advice.html */
+  const CONFIG = {
+    MOM: "Neha",
+    DAD: "Anurag",
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyS4ONxVTR4kDJ_51Rgb5DWCy_DJoFBsZ93fKcWZrjsij9SxSgfVTxGB248jwjzFfPSZA/exec",
+    REFRESH_SECONDS: 30,
+  };
+</script>
+<style>
+:root{--main:#00b4c6;--dark:#00879a;--bg:#e9fbfd;--pink:#ff5d8f;--pinkd:#d6386b;--paper:#fffdf8;--ink:#14444b;--soft:#4f7f86}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Quicksand',system-ui,sans-serif;color:var(--ink);min-height:100vh;background-color:var(--bg);
+  background-image:radial-gradient(circle at 20% 10%,#fff 0 2px,transparent 3px),radial-gradient(circle at 70% 60%,#ffffffb0 0 2px,transparent 3px);
+  background-size:38px 38px,52px 52px}
+.script{font-family:'Dancing Script',cursive;font-weight:700;line-height:1}
+.line{position:fixed;top:0;left:0;width:100%;height:64px;pointer-events:none;z-index:0}
+.pegs{position:fixed;top:18px;left:0;right:0;display:flex;justify-content:space-around;pointer-events:none;font-size:26px;z-index:0}
+.pegs span{animation:sway 4s ease-in-out infinite;transform-origin:top center}.pegs span:nth-child(2n){animation-delay:-2s}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:78px 16px 60px}
+
+header{text-align:center;margin-bottom:20px}
+header h1{font-size:clamp(44px,8vw,72px);color:var(--dark)}
+header h1 small{display:block;font-size:.65em;color:var(--main)}
+.meta{color:var(--soft);font-weight:600;font-size:14px;margin-top:8px}
+.toolbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{font-family:'Quicksand';font-weight:700;font-size:16px;border:none;border-radius:99px;padding:11px 22px;cursor:pointer;color:#fff;background:var(--pink);box-shadow:0 4px 0 var(--pinkd)}
+.btn.ghost{background:#fff;color:var(--dark);box-shadow:0 4px 0 #0000001a}
+.btn:active{transform:translateY(2px)}
+
+/* stitched panels */
+.panel{background:var(--main);color:#fff;border-radius:28px;padding:22px;position:relative;box-shadow:0 12px 26px #00879a30}
+.panel::before{content:"";position:absolute;inset:8px;border:2.5px dashed #ffffffc0;border-radius:22px;pointer-events:none}
+.panel h2{font-family:'Dancing Script';font-size:34px;text-align:center;margin-bottom:10px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:16px}
+
+/* gender */
+.gb{display:flex;gap:12px;align-items:stretch}
+.gb>div{flex:1;background:#ffffff22;border-radius:20px;padding:12px;text-align:center}
+.gb .ic{font-size:40px}.gb b{display:block;font-size:38px;line-height:1.1}.gb span{font-weight:700;font-size:14px}
+.gb .lead{background:#fff;color:var(--dark)}
+.bar{display:flex;height:14px;border-radius:99px;overflow:hidden;margin-top:14px;background:#ffffff40}
+.bar i{display:block;transition:width .8s}
+
+/* dates */
+.big{font-size:34px;font-weight:700;text-align:center;line-height:1.1}
+.sub{text-align:center;font-size:14px;font-weight:600;opacity:.9}
+.dates{display:flex;justify-content:space-between;gap:8px;margin-top:14px;text-align:center;font-size:13px;font-weight:600}
+.dates b{display:block;font-size:16px}
+.months{display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:14px}
+.months div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:11px;font-weight:700}
+.months i{display:block;width:100%;background:#fff;border-radius:8px 8px 3px 3px;min-height:4px;transition:height .8s}
+
+/* word clouds */
+.cloud{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+.cloud span{background:#fff;color:var(--dark);border-radius:99px;padding:4px 12px;font-weight:700;white-space:nowrap}
+.cloud span em{font-style:normal;color:var(--pink);font-size:.75em;margin-left:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two h3{font-family:'Dancing Script';font-size:26px;text-align:center;margin-bottom:8px}
+
+/* advice wall */
+.wallh{font-family:'Dancing Script';font-size:44px;text-align:center;color:var(--dark);margin:26px 0 14px}
+.wall{columns:300px;column-gap:16px}
+.card{break-inside:avoid;margin-bottom:16px;background:var(--paper);border-radius:20px;padding:20px 18px 16px;box-shadow:0 8px 20px #00879a1f;position:relative;border-top:8px solid var(--main)}
+.card:nth-child(3n+2){border-top-color:var(--pink)}
+.card:nth-child(3n+3){border-top-color:#ffb703}
+.card::before{content:"🧷";position:absolute;top:-16px;left:50%;transform:translateX(-50%) rotate(20deg);font-size:22px}
+.card p.adv{font-size:17px;line-height:1.55;font-weight:600;white-space:pre-wrap}
+.card .from{font-family:'Dancing Script';font-size:24px;color:var(--dark);margin-top:10px;text-align:right}
+.card .rel{font-size:12px;color:var(--soft);text-align:right;font-weight:700}
+.card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;font-size:12px;font-weight:700}
+.card .tags span{background:var(--bg);color:var(--dark);border-radius:99px;padding:3px 9px}
+.state{text-align:center;padding:60px 20px;color:var(--soft);font-size:18px;font-weight:600}
+.spinner{width:50px;height:50px;border:5px dashed var(--main);border-radius:50%;animation:spin 2s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- presentation ---------- */
+#show{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;padding:6vh 6vw;text-align:center;cursor:pointer;user-select:none;
+  background:var(--main);color:#fff}
+#show::before{content:"";position:absolute;inset:2.2vh;border:4px dashed #ffffffb0;border-radius:40px;pointer-events:none}
+#show.on{display:flex}
+#show .count{position:absolute;top:4.5vh;left:0;right:0;font-weight:700;letter-spacing:3px;font-size:clamp(12px,1.5vw,17px);opacity:.9}
+#show .close{position:absolute;top:4vh;right:4vw;background:#fff;color:var(--dark);border:none;border-radius:12px;width:44px;height:44px;font-size:20px;cursor:pointer;z-index:2}
+#show .hint{position:absolute;bottom:4.5vh;font-size:clamp(12px,1.4vw,16px);font-weight:600;opacity:.85}
+.slide{animation:pop .6s cubic-bezier(.2,1.3,.4,1) both;max-width:1100px}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:none}}
+.s-h{font-family:'Dancing Script';font-size:clamp(44px,7vw,96px)}
+.s-q{font-size:clamp(28px,4.4vw,60px);font-weight:700;line-height:1.3}
+.s-from{font-family:'Dancing Script';font-size:clamp(30px,4vw,54px);margin-top:4vh}
+.s-rel{font-size:clamp(14px,1.6vw,20px);font-weight:700;opacity:.85}
+.s-emoji{font-size:clamp(60px,9vw,120px);line-height:1}
+.s-row{display:flex;gap:4vw;justify-content:center;margin-top:4vh;flex-wrap:wrap}
+.s-row div{background:#fff;color:var(--dark);border-radius:30px;padding:3vh 4vw;min-width:22vw}
+.s-row b{display:block;font-size:clamp(48px,7vw,100px);line-height:1}
+.s-row span{font-weight:700;font-size:clamp(16px,2vw,26px)}
+.s-cloud{display:flex;flex-wrap:wrap;gap:1.4vw;justify-content:center;margin-top:4vh}
+.s-cloud span{background:#fff;color:var(--dark);border-radius:99px;padding:.6vh 1.6vw;font-weight:700}
+.fall{position:fixed;top:-30px;z-index:60;pointer-events:none;font-size:26px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+</style>
+</head>
+<body>
+<svg class="line" viewBox="0 0 400 64" preserveAspectRatio="none"><path d="M0 18 Q200 52 400 18" stroke="#00879a" stroke-width="2" fill="none"/></svg>
+<div class="pegs"><span>🧦</span><span>👕</span><span>🍼</span><span>🧸</span><span>🧦</span></div>
+
+<div class="wrap">
+  <header>
+    <h1 class="script">Baby Advice<small>&amp; Predictions</small></h1>
+    <p class="meta" id="meta">Loading…</p>
+    <div class="toolbar">
+      <button class="btn" id="presentBtn">▶ Present on TV</button>
+      <button class="btn ghost" id="refreshBtn">↻ Refresh</button>
+    </div>
+  </header>
+  <div id="content"><div class="state"><div class="spinner"></div>Unpinning the cards…</div></div>
+</div>
+
+<div id="show">
+  <button class="close" id="closeShow" aria-label="Close">✕</button>
+  <div class="count" id="sCount"></div>
+  <div id="stage"></div>
+  <div class="hint">Tap / press → for next</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const K={g:"It's going to be a",dob:"DOB",mom:"Hope baby gets "+CONFIG.MOM+"'s",dad:"& "+CONFIG.DAD+"'s",known:"Baby will know me as",nm:"Baby name suggestion",adv:"Advice for the new parents"};
+let D=null;
+
+async function load(){
+  try{
+    let j;
+    if(new URLSearchParams(location.search).has("demo")) j=demo();
+    else { const r=await fetch(CONFIG.SCRIPT_URL+"?form=advice&t="+Date.now()); j=await r.json(); }
+    D=crunch(j.rows||[]); render();
+  }catch(e){ console.error(e);
+    if(!D) $("content").innerHTML=`<div class="state">😅 Couldn't load results.<br><small>Make sure the Apps Script was redeployed with the latest code.</small></div>`; }
+}
+
+function toDate(v){ if(!v) return null; const s=String(v).slice(0,10); const d=new Date(s+"T12:00:00"); return isNaN(d)?null:d; }
+function count(arr){ const m={}; arr.forEach(x=>{ x=String(x||"").trim(); if(!x) return; const k=x.toLowerCase(); (m[k]=m[k]||{t:x,n:0}).n++; }); return Object.values(m).sort((a,b)=>b.n-a.n); }
+const fmt=d=>d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+
+function crunch(rows){
+  const girl=rows.filter(r=>r[K.g]==="Girl").length, boy=rows.filter(r=>r[K.g]==="Boy").length;
+  const dates=rows.map(r=>toDate(r[K.dob])).filter(Boolean).sort((a,b)=>a-b);
+  let avg=null; if(dates.length) avg=new Date(dates.reduce((s,d)=>s+d.getTime(),0)/dates.length);
+  const months={}; dates.forEach(d=>{const k=d.toLocaleDateString("en-IN",{month:"short"})+" '"+String(d.getFullYear()).slice(2); months[k]=(months[k]||0)+1;});
+  const topDay=count(dates.map(fmt))[0];
+  return {rows,girl,boy,dates,avg,months,topDay,
+    mom:count(rows.map(r=>r[K.mom])),dad:count(rows.map(r=>r[K.dad])),
+    names:count(rows.map(r=>r[K.nm])),known:rows.map(r=>({n:r.name,k:r[K.known]})).filter(x=>x.k)};
+}
+
+function cloud(list,max=24){ if(!list.length) return `<p class="sub">—</p>`; const top=list[0].n;
+  return `<div class="cloud">${list.slice(0,max).map(x=>`<span style="font-size:${13+Math.round(x.n/top*13)}px">${esc(x.t)}${x.n>1?`<em>×${x.n}</em>`:""}</span>`).join("")}</div>`; }
+
+function render(){
+  const d=D,n=d.rows.length;
+  $("meta").textContent=n?`${n} card${n>1?"s":""} from our lovely guests · updated ${new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}`:"No cards yet";
+  if(!n){ $("content").innerHTML=`<div class="state">🧸 No advice cards yet — share the form and check back!</div>`; return; }
+  const t=d.girl+d.boy, pg=t?Math.round(d.girl/t*100):0;
+  const mk=Object.keys(d.months), mmax=Math.max(1,...Object.values(d.months));
+  let h=`<div class="grid">
+    <section class="panel"><h2>Girl or Boy?</h2>
+      <div class="gb"><div class="${d.girl>d.boy?"lead":""}"><div class="ic">🎀</div><b>${d.girl}</b><span>Girl · ${pg}%</span></div>
+      <div class="${d.boy>d.girl?"lead":""}"><div class="ic">🧢</div><b>${d.boy}</b><span>Boy · ${t?100-pg:0}%</span></div></div>
+      <div class="bar"><i style="width:${pg}%;background:var(--pink)"></i><i style="width:${t?100-pg:0}%;background:#fff"></i></div>
+    </section>
+    <section class="panel"><h2>Arrival Day</h2>
+      ${d.avg?`<p class="sub">Guests' average guess</p><p class="big">📅 ${fmt(d.avg)}</p>
+      <div class="dates"><div>Earliest<b>${fmt(d.dates[0])}</b></div><div>Latest<b>${fmt(d.dates[d.dates.length-1])}</b></div></div>
+      <div class="months">${mk.map(k=>`<div><i style="height:${Math.round(d.months[k]/mmax*70)}px"></i>${k}</div>`).join("")}</div>`:`<p class="sub">No dates yet</p>`}
+    </section>
+  </div>
+  <div class="grid">
+    <section class="panel"><h2>I hope the baby gets…</h2>
+      <div class="two"><div><h3>${esc(CONFIG.MOM)}'s</h3>${cloud(d.mom)}</div><div><h3>${esc(CONFIG.DAD)}'s</h3>${cloud(d.dad)}</div></div>
+    </section>
+    <section class="panel"><h2>Name Suggestions</h2>${cloud(d.names,40)}</section>
+  </div>
+  <h2 class="wallh">Advice for the New Parents 💌</h2>
+  <section class="wall">${d.rows.map(r=>`<article class="card">
+      <p class="adv">${esc(r[K.adv])}</p>
+      <div class="from">— ${esc(r.name)}</div><div class="rel">${esc(r.relation)}${r[K.known]?` · “${esc(r[K.known])}”`:""}</div>
+      <div class="tags">${r[K.g]?`<span>${r[K.g]==="Girl"?"🎀":"🧢"} ${esc(r[K.g])}</span>`:""}${toDate(r[K.dob])?`<span>📅 ${fmt(toDate(r[K.dob]))}</span>`:""}${r[K.nm]?`<span>👶 ${esc(r[K.nm])}</span>`:""}</div>
+    </article>`).join("")}</section>`;
+  $("content").innerHTML=h;
+}
+
+/* ---------- presentation ---------- */
+let slides=[],si=0;
+function buildSlides(){
+  const d=D,t=d.girl+d.boy,s=[];
+  s.push(`<div class="s-emoji">💌</div><div class="s-h">Advice &amp; Predictions</div><div class="s-rel" style="margin-top:2vh">from ${d.rows.length} wonderful guests</div>`);
+  s.push(`<div class="s-h">Girl or Boy?</div><div class="s-row"><div><b>🎀 ${d.girl}</b><span>Girl</span></div><div><b>🧢 ${d.boy}</b><span>Boy</span></div></div>`);
+  if(d.avg) s.push(`<div class="s-h">The big day…</div><div class="s-q" style="margin-top:3vh">📅 ${fmt(d.avg)}</div><div class="s-rel" style="margin-top:2vh">average guess · from ${fmt(d.dates[0])} to ${fmt(d.dates[d.dates.length-1])}</div>`);
+  s.push(`<div class="s-h">I hope the baby gets…</div><div class="s-row">
+    <div><span>${esc(CONFIG.MOM)}'s</span><b style="font-size:clamp(30px,4.5vw,64px)">${esc(d.mom[0]?.t||"—")}</b></div>
+    <div><span>${esc(CONFIG.DAD)}'s</span><b style="font-size:clamp(30px,4.5vw,64px)">${esc(d.dad[0]?.t||"—")}</b></div></div>`);
+  if(d.names.length) s.push(`<div class="s-h">Name ideas 👶</div><div class="s-cloud">${d.names.slice(0,20).map(x=>`<span style="font-size:clamp(${16+x.n*3}px,${2+x.n*.4}vw,${40+x.n*6}px)">${esc(x.t)}</span>`).join("")}</div>`);
+  d.rows.forEach(r=>{ if(r[K.adv]) s.push(`<div class="s-emoji" style="font-size:clamp(40px,6vw,80px)">💬</div><div class="s-q" style="margin-top:2vh">“${esc(r[K.adv])}”</div><div class="s-from">— ${esc(r.name)}</div><div class="s-rel">${esc(r.relation)}</div>`); });
+  s.push(`<div class="s-emoji">🤍</div><div class="s-h">Thank you, everyone!</div><div class="s-rel" style="margin-top:2vh">With love, ${esc(CONFIG.MOM)} &amp; ${esc(CONFIG.DAD)}</div>`);
+  return s;
+}
+function draw(){ $("stage").innerHTML=`<div class="slide">${slides[si]}</div>`; $("sCount").textContent=`${si+1} / ${slides.length}`;
+  if(si===slides.length-1) rain(); }
+function openShow(){ if(!D||!D.rows.length) return; slides=buildSlides(); si=0; $("show").classList.add("on"); draw();
+  if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{}); }
+function closeShow(){ $("show").classList.remove("on"); if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+function next(){ if(si<slides.length-1){si++;draw();} }
+function prev(){ if(si>0){si--;draw();} }
+$("show").addEventListener("click",e=>{ if(e.target.id!=="closeShow") next(); });
+$("closeShow").onclick=e=>{e.stopPropagation();closeShow();};
+document.addEventListener("keydown",e=>{ if(!$("show").classList.contains("on")) return;
+  if(["ArrowRight"," ","Enter","PageDown"].includes(e.key)){e.preventDefault();next();}
+  else if(["ArrowLeft","PageUp"].includes(e.key)) prev(); else if(e.key==="Escape") closeShow(); });
+$("presentBtn").onclick=openShow; $("refreshBtn").onclick=load;
+
+function rain(){ const s=["🩵","🤍","🧸","🍼","⭐","🎀","🧦"];
+  for(let i=0;i<40;i++){const c=document.createElement("span");c.className="fall";c.textContent=s[i%s.length];
+    c.style.left=Math.random()*100+"vw";c.style.animationDuration=(2.2+Math.random()*2.5)+"s";c.style.animationDelay=Math.random()*.7+"s";
+    document.body.appendChild(c);setTimeout(()=>c.remove(),5500);} }
+
+function demo(){
+  const ppl=[["Priya Verma","Mausi","Girl","2027-02-14","eyes","smile","Fun Mausi","Anaya","Sleep when the baby sleeps, and take lots of photos — they grow up too fast!"],
+    ["Rohit","Chacha","Boy","2027-02-20","patience","humour","Partner in crime 😈","Vihaan","Don't google every symptom at 3 AM. Call mummy instead 😄"],
+    ["Sunita","Dadi","Boy","2027-02-10","cooking skills","calmness","Dadi","Aarav","Oil massage every day and a little kajal for nazar. Trust me."],
+    ["Kavya","Friend","Girl","2027-03-01","eyes","dimples","Kavya aunty","Myra","Take turns for night duty and always say thank you to each other."],
+    ["Amit","Mama","Girl","2027-02-14","smile","brains","Mama ji","Anaya","Keep a diaper bag ready by the door at all times."]];
+  return {rows:ppl.map(p=>({name:p[0],relation:p[1],[K.g]:p[2],[K.dob]:p[3],[K.mom]:p[4],[K.dad]:p[5],[K.known]:p[6],[K.nm]:p[7],[K.adv]:p[8]}))};
+}
+load(); setInterval(()=>{ if(!$("show").classList.contains("on")) load(); }, CONFIG.REFRESH_SECONDS*1000);
+</script>
+</body>
+</html>
