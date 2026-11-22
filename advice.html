@@ -4,17 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Baby Advice & Predictions</title>
-<meta name="theme-color" content="#b8875a">
+<meta name="theme-color" content="#e9fbfd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <script>
   /* ✏️ EDIT THIS BLOCK */
   const CONFIG = {
+    // Colour theme – bright: "candy", "tangerine", "turquoise", "violet"
+    //               soft:   "sage", "lavender", "blush", "sky"
+    THEME: "turquoise",
     MOM: "Neha",
     DAD: "Anurag",
     SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyS4ONxVTR4kDJ_51Rgb5DWCy_DJoFBsZ93fKcWZrjsij9SxSgfVTxGB248jwjzFfPSZA/exec",
   };
+  const THEMES = {
+    candy:     { main:"#ff4f8b", dark:"#d81b60", bg:"#fff0f6", accent:"#ffb300", accentDark:"#d18f00" },
+    tangerine: { main:"#ff7a2f", dark:"#e0560a", bg:"#fff4ea", accent:"#00b8a9", accentDark:"#008f83" },
+    turquoise: { main:"#00b4c6", dark:"#00879a", bg:"#e9fbfd", accent:"#ff5d8f", accentDark:"#d6386b" },
+    violet:    { main:"#8b5cf6", dark:"#6d3fe0", bg:"#f4efff", accent:"#ffb703", accentDark:"#d39400" },
+    sage:     { main:"#8fb3a0", dark:"#5f8a74", bg:"#eef5ef", accent:"#e8a5a0", accentDark:"#c57f7a" },
+    lavender: { main:"#a99bd1", dark:"#7a6aaf", bg:"#f3f0fa", accent:"#8fbfa4", accentDark:"#6a9b80" },
+    blush:    { main:"#e3a3a8", dark:"#c0747b", bg:"#fbefee", accent:"#8fb3a0", accentDark:"#5f8a74" },
+    sky:      { main:"#8fb8d8", dark:"#5d8db3", bg:"#eef5fb", accent:"#f2b5a0", accentDark:"#d08a73" },
+  };
+  (function(){ const t=THEMES[new URLSearchParams(location.search).get("theme")]||THEMES[CONFIG.THEME]||THEMES.turquoise;
+    const r=document.documentElement.style;
+    r.setProperty("--kraft",t.main); r.setProperty("--kraft-d",t.dark); r.setProperty("--cream",t.bg);
+    r.setProperty("--sage",t.accent); r.setProperty("--sage-d",t.accentDark); })();
 </script>
 <style>
 :root{
@@ -43,19 +60,19 @@ body{
   padding:calc(env(safe-area-inset-top) + 74px) 16px calc(env(safe-area-inset-bottom) + 24px);display:flex;flex-direction:column}
 
 /* ---------- Onesie card ---------- */
-.onesie{position:relative;margin:0 auto;width:100%;filter:drop-shadow(0 14px 22px #7a502c40)}
+.onesie{position:relative;margin:0 auto;width:100%;filter:drop-shadow(0 14px 22px rgba(0,0,0,.14))}
 .onesie .shoulders{display:block;width:100%;height:auto}
 .body{
   background:var(--kraft);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .1 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   margin:-2px 9% 0; border-radius:0 0 46px 46px; padding:6px 22px 30px; position:relative;
 }
 .body::before{content:"";position:absolute;inset:0 10px 12px;border:3px dashed #ffffffd0;border-top:none;border-radius:0 0 38px 38px;pointer-events:none}
 .snaps{display:flex;justify-content:center;gap:26px;margin-top:16px}
 .snaps i{width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:inset 0 -2px 0 #0002}
 
-.script{font-family:'Dancing Script',cursive;font-weight:700;line-height:1;text-align:center;text-shadow:0 2px 0 #0000001a}
+.script{font-family:'Dancing Script',cursive;font-weight:700;line-height:1;text-align:center;text-shadow:0 2px 0 rgba(0,0,0,.12)}
 .title{font-size:44px;margin:-4px 0 4px}
 .title small{display:block;font-size:34px}
 .hearts{font-size:20px;text-align:center;letter-spacing:6px;opacity:.9}
@@ -99,9 +116,9 @@ input[type=date].inp{color-scheme:dark;min-height:44px}
 /* nav */
 .nav{display:flex;gap:10px;margin-top:22px;align-items:center}
 .btn{flex:1;font-family:'Quicksand';font-weight:700;font-size:18px;border:none;border-radius:99px;padding:15px;cursor:pointer;
-  background:var(--paper);color:var(--kraft-d);box-shadow:0 5px 0 #7a502c55;transition:transform .1s}
-.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #7a502c55}
-.btn.sub{background:var(--sage);color:#fff;box-shadow:0 5px 0 #5f7d5c}
+  background:var(--paper);color:var(--kraft-d);box-shadow:0 5px 0 rgba(0,0,0,.15);transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.btn.sub{background:var(--sage);color:#fff;box-shadow:0 5px 0 var(--sage-d)}
 .back{width:52px;height:52px;flex:none;border-radius:50%;border:2.5px dashed #fff;background:transparent;color:#fff;font-size:22px;cursor:pointer}
 .back[hidden]{display:none}
 
@@ -122,7 +139,7 @@ input[type=date].inp{color-scheme:dark;min-height:44px}
 </style>
 </head>
 <body>
-<div class="line"><svg viewBox="0 0 400 64" preserveAspectRatio="none"><path d="M0 18 Q200 52 400 18" stroke="#9a6c43" stroke-width="2" fill="none"/></svg></div>
+<div class="line"><svg viewBox="0 0 400 64" preserveAspectRatio="none"><path d="M0 18 Q200 52 400 18" style="stroke:var(--kraft-d)" stroke-width="2" fill="none"/></svg></div>
 <div class="pegs"><span>🧦</span><span>👕</span><span>🍼</span><span>🧸</span><span>🧦</span></div>
 
 <main class="app">
@@ -130,9 +147,9 @@ input[type=date].inp{color-scheme:dark;min-height:44px}
     <!-- shoulders / sleeves of the onesie -->
     <svg class="shoulders" viewBox="0 0 400 120" aria-hidden="true">
       <defs>
-        <filter id="kn"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3"/><feColorMatrix values="0 0 0 0 .35 0 0 0 0 .22 0 0 0 0 .1 0 0 0 .22 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+        <filter id="kn"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .10 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
       </defs>
-      <path id="sh" d="M36 120 L36 92 L4 92 Q0 60 30 38 L120 6 Q150 44 200 44 Q250 44 280 6 L370 38 Q400 60 396 92 L364 92 L364 120 Z" fill="#b8875a"/>
+      <path id="sh" d="M36 120 L36 92 L4 92 Q0 60 30 38 L120 6 Q150 44 200 44 Q250 44 280 6 L370 38 Q400 60 396 92 L364 92 L364 120 Z" style="fill:var(--kraft)"/>
       <use href="#sh" filter="url(#kn)"/>
       <path d="M44 120 L44 84 L13 84 Q12 62 34 46 L118 16 Q150 54 200 54 Q250 54 282 16 L366 46 Q388 62 387 84 L356 84 L356 120" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 8" opacity=".85"/>
     </svg>
@@ -341,7 +358,7 @@ $("again").onclick=()=>{
   document.querySelectorAll("#thanks > .from").forEach(f=>f.remove());
   step=0; show();
 };
-function rain(){ const s=["🤎","🤍","🧸","🍼","⭐","🎀","🧦"];
+function rain(){ const s=["💚","🤍","🧸","🍼","⭐","🎀","🧦"];
   for(let i=0;i<34;i++){const c=document.createElement("span");c.className="fall";c.textContent=s[i%s.length];
     c.style.left=Math.random()*100+"vw";c.style.animationDuration=(2.2+Math.random()*2.5)+"s";c.style.animationDelay=Math.random()*.7+"s";
     document.body.appendChild(c);setTimeout(()=>c.remove(),5500);} }
